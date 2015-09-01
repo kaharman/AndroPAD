@@ -1,0 +1,119 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#0099cc" tools:context=".MainActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <TextView android:id="@+id/fullscreen_content" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:keepScreenOn="true" android:textColor="#33b5e5"
+        android:textStyle="bold" android:textSize="50sp" android:gravity="center"
+        android:text="@string/dummy_content" />
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+<!--
+        <LinearLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay" android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+            <Button android:id="@+id/dummy_button" style="?metaButtonBarButtonStyle"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="@string/dummy_button" />
+
+        </LinearLayout>
+-->
+
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonUp"
+            android:layout_gravity="left|top"
+            android:background="@drawable/button_circle"
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="80dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonDown"
+            android:layout_gravity="bottom|left"
+            android:background="@drawable/button_circle"
+            android:layout_marginLeft="80dp"
+            android:layout_marginBottom="70dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonLeft"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/button_circle"
+            android:layout_marginLeft="20dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonRight"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/button_circle"
+            android:layout_marginLeft="140dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonA"
+            android:layout_gravity="bottom|right"
+            android:background="@drawable/button_circle"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="70dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonB"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/button_circle"
+            android:layout_marginRight="20dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonX"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/button_circle"
+            android:layout_marginRight="140dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonY"
+            android:layout_gravity="right|top"
+            android:background="@drawable/button_circle"
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="80dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonSelect"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@drawable/button_circle"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="40dp" />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonStart"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@drawable/button_circle"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="30dp" />
+
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/buttonSettings"
+            android:layout_gravity="right|top"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/config" />
+    </FrameLayout>
+
+</FrameLayout>

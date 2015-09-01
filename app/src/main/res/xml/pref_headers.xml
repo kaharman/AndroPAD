@@ -1,0 +1,17 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header android:fragment="id.my.kaharman.andropad.SettingsActivity$GeneralPreferenceFragment"
+        android:title="header_general" />
+
+<!--
+    <header
+        android:fragment="id.my.kaharman.andropad.SettingsActivity$NotificationPreferenceFragment"
+        android:title="header_notifications" />
+
+    <header android:fragment="id.my.kaharman.andropad.SettingsActivity$DataSyncPreferenceFragment"
+        android:title="header_data_sync" />
+-->
+
+</preference-headers>
