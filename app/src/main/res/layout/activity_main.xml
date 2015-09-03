@@ -17,12 +17,20 @@
         android:fitsSystemWindows="true">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/backgroundImage"
             android:layout_gravity="center_horizontal|center_vertical"
             android:src="@drawable/controller_snes"
             android:scaleType="centerCrop" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/buttonMaskImage"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:src="@drawable/controller_snes_mask"
+            android:scaleType="centerCrop"
+            android:visibility="visible" />
 
         <!--
                 <LinearLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"
@@ -37,6 +45,7 @@
 
                 </LinearLayout>
         -->
+<!--
         <ImageButton
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -115,6 +124,7 @@
             android:background="@drawable/button_circle"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp" />
+-->
 
         <ImageButton
             android:layout_width="56dp"

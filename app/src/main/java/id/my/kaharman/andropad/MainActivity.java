@@ -5,16 +5,21 @@ import id.my.kaharman.andropad.util.SystemUiHider;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.io.IOException;
 
@@ -54,9 +59,10 @@ public class MainActivity extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
-//    private static final String BASE_URL = "http://192.168.43.208:7777/1/";
-    private static final String BASE_URL = "http://192.168.43.187:7777/1/";
+    private static final String BASE_URL = "http://192.168.43.208:7777/1/";
+//    private static final String BASE_URL = "http://192.168.43.187:7777/1/";
     private Vibrator hapticVibration;
+    private SparseArray<PointF> mActivePointers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +138,73 @@ public class MainActivity extends Activity {
 
         hapticVibration = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
+        mActivePointers = new SparseArray<PointF>();
+        ImageView controllerMask = (ImageView) findViewById(R.id.buttonMaskImage);
+        controllerMask.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // get pointer index from the event object
+                int pointerIndex = event.getActionIndex();
+
+                // get pointer ID
+                int pointerId = event.getPointerId(pointerIndex);
+
+                // get masked (not specific to a pointer) action
+                int maskedAction = event.getActionMasked();
+
+                Boolean flagUpdate = false;
+
+                switch (maskedAction) {
+
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_POINTER_DOWN: {
+                        // We have a new pointer. Lets add it to the list of pointers
+
+                        PointF f = new PointF();
+                        f.x = event.getX(pointerIndex);
+                        f.y = event.getY(pointerIndex);
+                        mActivePointers.put(pointerId, f);
+                        flagUpdate = true;
+                        break;
+                    }
+                    case MotionEvent.ACTION_MOVE: { // a pointer was moved
+                        for (int size = event.getPointerCount(), i = 0; i < size; i++) {
+                            PointF point = mActivePointers.get(event.getPointerId(i));
+                            if (point != null) {
+                                point.x = event.getX(i);
+                                point.y = event.getY(i);
+                            }
+                        }
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_POINTER_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        mActivePointers.remove(pointerId);
+                        break;
+                    }
+                }
+
+                if (flagUpdate == true) {
+                    for (int size = mActivePointers.size(), i = 0; i < size; i++) {
+                        PointF point = mActivePointers.valueAt(i);
+                        if (point != null) {
+                            int touchColor = getHotspotColor(R.id.buttonMaskImage, (int) point.x, (int) point.y);
+
+                            ColorTool ct = new ColorTool();
+                            if (ct.closeMatch(0xFF800000, touchColor, 25)) {
+                                new SendCommand().execute(BASE_URL + "up/1");
+                                hapticVibration.vibrate(50);
+                            }
+                        }
+                    }
+                }
+
+                return true;
+            }
+        });
+
+/*
         ImageButton buttonUp = (ImageButton) findViewById(R.id.buttonUp);
         buttonUp.setOnTouchListener(new View.OnTouchListener() {
 
@@ -299,6 +372,15 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
+*/
+    }
+
+    public int getHotspotColor (int hotspotId, int x, int y) {
+        ImageView img = (ImageView) findViewById (hotspotId);
+        img.setDrawingCacheEnabled(true);
+        Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
+        img.setDrawingCacheEnabled(false);
+        return hotspots.getPixel(x, y);
     }
 
     @Override
